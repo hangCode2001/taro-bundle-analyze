@@ -1,0 +1,37 @@
+{
+  "name": "taro-bundle-analyze",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "Taro",
+    "Plugin"
+  ],
+  "author": "",
+  "homepage": "",
+  "license": "MIT",
+  "main": "index.js",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "index.js",
+    "types"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "dependencies": {
+    "@tarojs/service": "^4.0.5",
+    "webpack-chain": "^6.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11"
+  }
+}
