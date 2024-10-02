@@ -1,4 +1,4 @@
-# plugin-name
+# taro-bundle-analyze
 
 > 
 
@@ -6,7 +6,7 @@
 
 ### 安装
 ```
-npm i plugin-name -D
+npm i taro-bundle-analyze -D
 ```
 
 ### 使用插件
@@ -15,7 +15,7 @@ npm i plugin-name -D
 ```js
 const config = {
   plugins: [
-    ["plugin-name"]
+    ["taro-bundle-analyze"]
   ]
 }
 ```
