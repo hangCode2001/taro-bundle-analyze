@@ -1,0 +1,4 @@
+packages:
+  - packages/plugin #  插件
+  - packages/pluginView #  插件的视图
+  - playground #  演示
