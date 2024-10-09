@@ -11,7 +11,7 @@ function TaroBundleAnalyzePlugin(options = {}) {
 
 TaroBundleAnalyzePlugin.prototype.generateReportFile = async function (data) {
   try {
-    const { output, fileName = 'report.json', env = 'prod' } = this.options;
+    const { output, fileName = 'report.json' } = this.options;
     if (!fs.existsSync(output)) {
       fs.mkdirSync(output, { recursive: true });
     }
@@ -24,7 +24,6 @@ TaroBundleAnalyzePlugin.prototype.generateReportFile = async function (data) {
 };
 
 TaroBundleAnalyzePlugin.prototype.analyStats = (stats) => {
-  writeFile('test.json', JSON.stringify(stats.assets));
   return stats.assets.map(asset => {
     const type = path.extname(asset.name).slice(1);
     const chunk = asset.chunks[0] ?
