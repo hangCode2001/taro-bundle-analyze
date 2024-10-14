@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { writeFile } = require('fs/promises');
+const { version } = require('webpack');
 const path = require('path');
 const { Buffer } = require('buffer');
 const { parseBundle } = require('./parseUtils');
@@ -122,20 +123,32 @@ TaroBundleAnalyzePlugin.prototype.calcReportData = function (assets) {
 
 TaroBundleAnalyzePlugin.prototype.apply = function (compiler) {
   compiler.hooks.compilation.tap("taro-bundle-analyze", (compilation) => {
-    // webpack 5 废弃了 compilation.hooks.normalModuleLoader
-    // if (version && version.split(".")[0] >= 5) {
-      const normalModule = compiler.webpack.NormalModule;
-      normalModule
-        .getCompilationHooks(compilation)
-        .loader.tap("taro-bundle-analyze", (_loaderContext, module) => {
-          module.loaders.forEach((item) => {
-            if (item.loader === "@tarojs/taro-loader") {
-              // 获取taro app配置
-              this.appConfig = item.options.config;
-            }
-          });
-        });
-    // }
+    // webpack 5 废弃了 compilation.hooks.normalModuleLoader        
+    if (version && version.split(".")[0] >= 5) {
+            const normalModule = compiler.webpack.NormalModule;
+            normalModule
+                .getCompilationHooks(compilation)
+                .loader.tap("taro-analysis-plugin", (_loaderContext, module) => {
+                    module.loaders.forEach((item) => {
+                        if (item.loader === "@tarojs/taro-loader") {
+                            // 获取taro app配置
+                            this.appConfig = item.options.config;
+                        }
+                    });
+                });
+        } else {
+            compilation.hooks.normalModuleLoader.tap(
+                "taro-analysis-plugin",
+                (_loaderContext, module) => {
+                    module.loaders.forEach((item) => {
+                        if (item.loader === "@tarojs/taro-loader") {
+                            // 获取taro app配置
+                            this.appConfig = item.options.config;
+                        }
+                    });
+                }
+            );
+        }
   });
 
   compiler.hooks.done.tap('taro-bundle-analyze', stats => {
