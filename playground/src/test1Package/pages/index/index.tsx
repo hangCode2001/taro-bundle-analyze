@@ -17,12 +17,12 @@ export default class Index extends Component<PropsWithChildren> {
   render () {
     return (
       <View className='<%= pageName %>'>
-        <Text>分包测试111</Text>
-        <AtButton type='primary'>I need Taro UI</AtButton>
-        <Text>分包测试111</Text>
-        <AtButton type='primary' circle={true}>支持</AtButton>
-        <Text>分包测试111</Text>
-        <AtButton type='secondary' circle={true}>来</AtButton>
+        <Text>test2</Text>
+        <AtButton type='primary'>test2</AtButton>
+        <Text>test2</Text>
+        <AtButton type='primary' circle={true}>test2</AtButton>
+        <Text>test2</Text>
+        <AtButton type='secondary' circle={true}>test2</AtButton>
       </View>
     )
   }
