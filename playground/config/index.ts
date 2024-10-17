@@ -1,7 +1,7 @@
 import { defineConfig, type UserConfigExport } from '@tarojs/cli'
-import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 import devConfig from './dev'
 import prodConfig from './prod'
+import TaroBundleAnalyzePlugin from "taro-bundle-analyze/dist/plugin"
 
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
 export default defineConfig<'vite'>(async (merge, { command, mode }) => {
@@ -17,18 +17,15 @@ export default defineConfig<'vite'>(async (merge, { command, mode }) => {
     },
     sourceRoot: 'src',
     outputRoot: 'dist',
-    plugins: [],
+    plugins: ['taro-bundle-analyze'],
     defineConstants: {
-    },
-    copy: {
-      patterns: [
-      ],
-      options: {
-      }
     },
     framework: 'react',
     compiler: 'vite',
     mini: {
+      webpackChain(chain){
+        chain.plugin('taro-bundle-analyze').use(TaroBundleAnalyzePlugin)
+      },
       postcss: {
         pxtransform: {
           enable: true,
@@ -44,37 +41,6 @@ export default defineConfig<'vite'>(async (merge, { command, mode }) => {
           }
         }
       },
-    },
-    h5: {
-      publicPath: '/',
-      staticDirectory: 'static',
-
-      miniCssExtractPluginOption: {
-        ignoreOrder: true,
-        filename: 'css/[name].[hash].css',
-        chunkFilename: 'css/[name].[chunkhash].css'
-      },
-      postcss: {
-        autoprefixer: {
-          enable: true,
-          config: {}
-        },
-        cssModules: {
-          enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
-          config: {
-            namingPattern: 'module', // 转换模式，取值为 global/module
-            generateScopedName: '[name]__[local]___[hash:base64:5]'
-          }
-        }
-      },
-    },
-    rn: {
-      appName: 'taroDemo',
-      postcss: {
-        cssModules: {
-          enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
-        }
-      }
     }
   }
   if (process.env.NODE_ENV === 'development') {

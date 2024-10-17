@@ -17,9 +17,9 @@ export default class Index extends Component<PropsWithChildren> {
   render () {
     return (
       <View className='<%= pageName %>'>
-        <Text>test1</Text>
-        <AtButton type='primary'>test1</AtButton>
-        <Text>Ttest1</Text>
+        <Text>basePackage</Text>
+        <AtButton type='primary'>跳回主页</AtButton>
+        <Text>basePackage</Text>
       </View>
     )
   }

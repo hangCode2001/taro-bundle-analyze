@@ -1,5 +1,4 @@
 import { Component, PropsWithChildren } from 'react'
-
 import './app.scss'
 
 
